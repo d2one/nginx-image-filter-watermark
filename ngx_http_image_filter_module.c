@@ -1070,6 +1070,24 @@ transparent:
                         } else if (ngx_strcmp(conf->watermark_position.data, "bottom-left") == 0) {
                             wdx = 10;
                             wdy = (int)dst->sy - watermark->sy - 10;
+                        } else if (ngx_strcmp(conf->watermark_position.data, "corner-random") == 0) {
+			  ngx_int_t what_corner = (ngx_int_t)(rand() % 4);  
+			    if(what_corner == 0)
+			      {
+				wdx = (int)dst->sx - watermark->sx - 10;
+				wdy = (int)dst->sy - watermark->sy - 10;
+			      } else if(what_corner == 1)
+			      {
+				wdx = wdy = 10;
+			      } else if(what_corner == 2)
+			      {
+				wdx = (int)dst->sx - watermark->sx - 10;
+				wdy = 10;
+			      }else 
+			      {
+				wdx = 10;
+				wdy = (int)dst->sy - watermark->sy - 10;
+			      }
                         }else if (ngx_strcmp(conf->watermark_position.data, "top-center") == 0) {
                             wdy = 10;
                             wdx = (int)dst->sx/2 - (int)watermark->sx/2;
